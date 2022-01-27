@@ -1,0 +1,51 @@
+.label {
+  display: block;
+  margin-bottom: 20px;
+}
+.title {
+  display: block;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.textField {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  font-family: inherit;
+  background-color: rgba(128, 128, 128, 0.187);
+  font-size: 20px;
+  font-weight: 200;
+  background-color: inherit;
+  border-radius: 5px;
+  border: 2px solid #007188;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 14%);
+}
+@media screen and (min-width: 768px) {
+  .textField {
+    width: 95%;
+  }
+}
+.textField::placeholder {
+  color: rgba(0, 0, 0, 0.37);
+}
+.addBtn {
+  width: 160px;
+  height: 50px;
+  font-size: 16px;
+  line-height: 26px;
+  color: #fff;
+  background-color: #007188;
+  border-radius: 5px;
+  border: inherit;
+  box-sizing: border-box;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 14%);
+}
+.addBtn:hover,
+.addBtn:focus {
+  transform: scale(1.03);
+}
