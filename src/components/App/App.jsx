@@ -6,10 +6,23 @@ import * as storage from 'services/localStorage';
 import image from 'images/image.jpg';
 import s from './App.module.css';
 import Container from 'components/common/Container/Container';
+import { ThemeContext, themes } from 'context/themeContext';
+import ThemeSwitcher from 'components/ThemeSwitcher/ThemeSwitcher';
 
 const STORAGE_KEY = 'contacts';
 
 const App = () => {
+  //theme switcher
+  const [theme, setTheme] = useState(themes.light); //хранит текущую тему
+
+  const toggleTheme = () =>
+    setTheme(prevTheme =>
+      prevTheme === themes.light ? themes.dark : themes.light,
+    );
+  // console.log(ThemeContext);
+  console.log(theme);
+  //theme switcher - end
+
   const [contacts, setContacts] = useState(
     () => storage.get(STORAGE_KEY) ?? [],
   );
@@ -43,23 +56,27 @@ const App = () => {
     setContacts(prevContacts => prevContacts.filter(elem => elem.id !== id));
   };
   return (
-    <div className={s.wrap}>
-      <Container>
-        <img className={s.image} src={image} alt="Woman" />
-        <div className={s.contantWrap}>
-          <h1 className={s.title}>Phonebook</h1>
-          <div className={s.wrap}>
-            <ContactForm onSubmitForm={onSubmit} contacts={contacts} />
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <div className={theme === themes.light ? s.lightTheme : s.darkTheme}>
+        {/* <div className={s.wrap}> */}
+        <Container>
+          <ThemeSwitcher />
+          <img className={s.image} src={image} alt="Woman" />
+          <div className={s.contantWrap}>
+            <h1 className={s.title}>Phonebook</h1>
+            <div className={s.wrap}>
+              <ContactForm onSubmitForm={onSubmit} contacts={contacts} />
+            </div>
+            <h2 className={s.subtitle}>Contacts:</h2>
+            {contacts.length > 1 && (
+              <Filter value={filter} onChange={onChangeInput} />
+            )}
+            {!contacts.length && <span>There are not contacts yet</span>}
+            <ContactList contacts={onFilterChange()} onDelete={deleteContact} />
           </div>
-          <h2 className={s.subtitle}>Contacts:</h2>
-          {contacts.length > 1 && (
-            <Filter value={filter} onChange={onChangeInput} />
-          )}
-          {!contacts.length && <span>There are not contacts yet</span>}
-          <ContactList contacts={onFilterChange()} onDelete={deleteContact} />
-        </div>
-      </Container>
-    </div>
+        </Container>
+      </div>
+    </ThemeContext.Provider>
   );
 };
 export default App;

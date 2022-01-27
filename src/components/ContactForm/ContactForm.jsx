@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import s from './ContactForm.module.css';
 import { nanoid } from 'nanoid';
+
+import { ThemeContext, themes } from 'context/themeContext';
 
 const ContactForm = ({ onSubmitForm, contacts }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const { theme } = useContext(ThemeContext);
 
   const onSubmit = e => {
     e.preventDefault();
@@ -17,7 +20,6 @@ const ContactForm = ({ onSubmitForm, contacts }) => {
     reset();
   };
 
-  //Репета 17:09
   const onChangeInput = e => {
     const { name, value } = e.target;
 
@@ -45,9 +47,13 @@ const ContactForm = ({ onSubmitForm, contacts }) => {
   return (
     <form className={s.contacsForm} onSubmit={onSubmit}>
       <label className={s.label}>
-        <span className={s.title}>Name:</span>
+        <span className={theme === themes.light ? s.litghtTitle : s.darkTitle}>
+          Name:
+        </span>
         <input
-          className={s.textField}
+          className={
+            theme === themes.light ? s.lightTextField : s.darkTextField
+          }
           type="text"
           onChange={onChangeInput}
           value={name}
@@ -60,7 +66,9 @@ const ContactForm = ({ onSubmitForm, contacts }) => {
       <label className={s.label}>
         <span className={s.title}>Number:</span>
         <input
-          className={s.textField}
+          className={
+            theme === themes.light ? s.lightTextField : s.darkTextField
+          }
           type="tel"
           onChange={onChangeInput}
           value={number}

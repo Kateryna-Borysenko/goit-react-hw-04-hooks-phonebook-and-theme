@@ -2,11 +2,19 @@
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
+  background-color: #555;
 }
-.wrap {
+.lightTheme {
   max-width: 1200px;
   margin: 0 auto;
   background: center / cover no-repeat url('images/section-img.png');
+}
+.darkTheme {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: center / cover no-repeat url('images/dark-section-img.png');
+  background-color: rgba(85, 85, 85, 0.701);
+  color: #fff;
 }
 .image {
   display: none;
