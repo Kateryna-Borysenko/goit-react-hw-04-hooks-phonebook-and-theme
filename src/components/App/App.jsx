@@ -9,28 +9,32 @@ import Container from 'components/common/Container/Container';
 import { ThemeContext, themes } from 'context/themeContext';
 import ThemeSwitcher from 'components/ThemeSwitcher/ThemeSwitcher';
 
-const STORAGE_KEY = 'contacts';
+const CONTACTS_STORAGE_KEY = 'contacts';
+const THEME_STORAGE_KEY = 'theme';
 
 const App = () => {
   //theme switcher
-  const [theme, setTheme] = useState(themes.light); //хранит текущую тему
+  const [theme, setTheme] = useState(
+    () => storage.get(THEME_STORAGE_KEY) ?? themes.light,
+  ); //хранит текущую тему
 
   const toggleTheme = () =>
     setTheme(prevTheme =>
       prevTheme === themes.light ? themes.dark : themes.light,
     );
   // console.log(ThemeContext);
-  console.log(theme);
+  // console.log(theme);
   //theme switcher - end
 
   const [contacts, setContacts] = useState(
-    () => storage.get(STORAGE_KEY) ?? [],
+    () => storage.get(CONTACTS_STORAGE_KEY) ?? [],
   );
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    storage.save(STORAGE_KEY, contacts);
-  }, [contacts]);
+    storage.save(CONTACTS_STORAGE_KEY, contacts);
+    storage.save(THEME_STORAGE_KEY, theme);
+  }, [contacts, theme]);
 
   const onSubmit = newContact => {
     const { id, name, number } = newContact;
