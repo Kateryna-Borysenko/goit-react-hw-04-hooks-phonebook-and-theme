@@ -1,4 +1,4 @@
-### MOVIES on React
+### A phonebook app on React (theme switcher)
 
  <img src="./src/images/screen.png" width="900">
 
